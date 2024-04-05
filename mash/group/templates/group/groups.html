@@ -3,8 +3,57 @@
 {% block title %}Groups{% endblock %}
 
 {% block content %}
+<style>
+    .room_page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.mygroups{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.grp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.room_block{
+    background-color: #36A2AD;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 300px;
+    height: 180px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 30px;
+    display: flex;
+    align-items: center;
+   justify-content: center;
+}
+
+.extra_room_block {
+    background-color: white;
+    width: 200px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+
 <div class="room_page">
-    <div class="room_container_int">
+    <div>
 
         <div class="grp">
             <h1 >Groups</h1>
@@ -13,11 +62,10 @@
         <div class="mygroups">
             {% for group in groups %}
                 <div class="room_block">
-                    <div class="p-4 bg-white shadow rounded-xl text-center">
-                        <h2>{{ group.name }}</h2>
-        
-                        <div class="join_btn">
-                            <a href="{% url 'group' group.slug %}" class="join_btn_txt">Join</a>
+                    <div class="extra_room_block">
+                        <h4>{{ group.name }}</h4>
+                        <div>
+                            <a href="{% url 'group' group.slug %}" class="btn btn-outline-info">Join</a>
                         </div>
                         
                     </div>
@@ -25,7 +73,7 @@
             {% endfor %}
         </div>
         <div class="add_grp">
-            <a href="{% url 'addgroup' %}" class="add_grp_txt" >Add Group</a>
+            <a href="{% url 'addgroup' %}" class="btn btn-outline-info" >Add Group</a>
         </div>
     </div>
 </div>

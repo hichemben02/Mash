@@ -3,26 +3,30 @@
 {% block title %}New Group{% endblock %}
 
 {% block content %}
-<section class="main">
-    <form method="post" action="http://127.0.0.1:8000/groups/checkview" class="lg:w-1/4 px-4 mx-auto">
-      <div class="title">
-        <h1>New Group</h1>
-      </div>
-      {% csrf_token %}
-
-      <div class="control">
-        <label class="text-white">Name</label>
-
-        <input type="text" name="name" />
-      </div>
-
-      <div class="control">
-        <label class="text-white">slug</label>
-
-        <input type="text" name="slug" />
-      </div>
-
-      <button>add group</button>
-    </form>
-</section>
+<div class="m-auto col-md-8">
+  <div class="content-section">
+      <form method="post" action="http://127.0.0.1:8000/groups/checkview" class="lg:w-1/4 px-4 mx-auto">
+        {% csrf_token %}
+  
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">New Group</legend>
+          <div class="control">
+            <label>Name</label>
+  
+            <input type="text" name="name" maxlength="150" class="textinput form-control" />
+          </div>
+  
+          <div class="control">
+            <label>Slug</label>
+  
+            <input type="text" name="slug" maxlength="150" class="textinput form-control"/>
+          </div>
+        </fieldset>
+  
+        <div class="form-group">
+          <button class="btn btn-outline-info">Add group</button>
+        </div>
+      </form>
+  </div>
+  </div>
 {% endblock %}
