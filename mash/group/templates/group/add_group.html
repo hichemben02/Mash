@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}New Group{% endblock %}
+
+{% block content %}
+<section class="main">
+    <form method="post" action="http://127.0.0.1:8000/groups/checkview" class="lg:w-1/4 px-4 mx-auto">
+      <div class="title">
+        <h1>New Group</h1>
+      </div>
+      {% csrf_token %}
+
+      <div class="control">
+        <label class="text-white">Name</label>
+
+        <input type="text" name="name" />
+      </div>
+
+      <div class="control">
+        <label class="text-white">slug</label>
+
+        <input type="text" name="slug" />
+      </div>
+
+      <button>add group</button>
+    </form>
+</section>
+{% endblock %}

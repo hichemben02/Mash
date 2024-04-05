@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Groups{% endblock %}
+
+{% block content %}
+<div class="room_page">
+    <div class="room_container_int">
+
+        <div class="grp">
+            <h1 >Groups</h1>
+        </div>
+        
+        <div class="mygroups">
+            {% for group in groups %}
+                <div class="room_block">
+                    <div class="p-4 bg-white shadow rounded-xl text-center">
+                        <h2>{{ group.name }}</h2>
+        
+                        <div class="join_btn">
+                            <a href="{% url 'group' group.slug %}" class="join_btn_txt">Join</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="add_grp">
+            <a href="{% url 'addgroup' %}" class="add_grp_txt" >Add Group</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

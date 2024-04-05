@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Email | MASH</title>
+</head>
+<body>
+    {% if messages %}
+    <div class="messages fixed top-0 left-0 w-full z-50">
+        {% for message in messages %}
+        <div class="message bg-green-100 bg-opacity-50 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <span class="close absolute top-0 right-0 px-4 py-3 cursor-pointer" onclick="this.parentElement.style.display='none'">&times;</span>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+        
+    
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background-color: #4169E1; padding: 20px; text-align: center;">
+            <h1 style="color: #fff; margin: 0;">Confirm Your Email</h1>
+        </div>
+        <div style="padding: 20px;">
+            <p class="text-gray-800 text-base mb-4">Hi {{user.first_name}},</p>
+            <p class="text-gray-800 text-base mb-4">Please enter the OTP that has been sent to your email to confirm your email address.</p>
+            <form action={% url 'confirm_account'%} method="post" id="confirm-account-form">
+                {% csrf_token %}
+                <div style="margin-bottom: 10px;">
+                    <label for="otp">OTP</label>
+                    <input type="text" name="otp" id="otp" style="padding: 5px; width: 100%; border: 2px solid black; color: #333; font-size: 16px; font-family: Arial, sans-serif;">
+                </div>
+                <button style="padding: 10px; background-color: #4169E1; color: #fff; border: none; cursor: pointer;">Confirm Email</button>
+            </form>
+        </div>
+        <div style="background-color: #4169E1; padding: 20px; text-align: center;">
+            <p style="color: #fff; margin: 0;">if you leave this page without confirming your email, your account will be deleted.</p>
+    </div>
+</body>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>
