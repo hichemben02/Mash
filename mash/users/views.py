@@ -18,6 +18,8 @@ from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
 from cryptography.fernet import Fernet
+from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LogoutView as BaseLogoutView
 # Create your views here.
 
 cipher = Fernet(b'79G7lLKB6J6gZ6BBjrK4gqXrDRbG0iGdZXRrp3bFaOE=')
@@ -30,14 +32,42 @@ def delete_inactive_users():
 User = get_user_model()
 
 @receiver(user_logged_in)
-def got_online(sender, user, request, **kwargs):    
+def got_online(user, **kwargs):    
     user.profile.is_online = True
     user.profile.save()
 
 @receiver(user_logged_out)
-def got_offline(sender, user, request, **kwargs):   
+def got_offline(user, **kwargs):   
     user.profile.is_online = False
     user.profile.save()
+
+class CustomLoginView(BaseLoginView):
+    #delete_inactive_users()
+    template_name = 'users/login.html'
+
+    def form_valid(self, form):
+        # Authenticate user
+        user = form.get_user()
+
+        if user is not None:
+            if user.profile.is_online:
+                # User is already logged in, prevent login
+                messages.error(self.request, 'User is already logged in.')
+                return self.form_invalid(form)
+
+            # Set is_logged_in to True
+            got_online(user)
+
+        return super().form_valid(form)
+    
+
+
+class CustomLogoutView(BaseLogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        # Set is_logged_in to False
+        if request.user.is_authenticated:
+            got_offline(request.user)
+        return super().dispatch(request, *args, **kwargs)
 
 
 
