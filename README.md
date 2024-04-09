@@ -16,4 +16,5 @@ After activating the virtual environment and installing the requirements, you ar
 - `py manage.py makemigrations`
 - `py manage.py migrate`
 - `py manage.py runserver`
+
 and open the link that appears
