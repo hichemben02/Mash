@@ -20,9 +20,11 @@ from django.utils.crypto import get_random_string
 from cryptography.fernet import Fernet
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
+import os
 # Create your views here.
 
-cipher = Fernet(b'79G7lLKB6J6gZ6BBjrK4gqXrDRbG0iGdZXRrp3bFaOE=')
+key = os.getenv('SECRET_KEY3').encode()
+cipher = Fernet(key)
 
 def delete_inactive_users():
     # Delete inactive users (is_active=False) 

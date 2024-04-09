@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -182,6 +183,12 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+load_dotenv()
+SECRET_KEY1 = 'ZmDfcTF7_60GrrY167zsiPd67pEvs0aGOv2oasOM1Pg='
+SECRET_KEY2 = 'W4q6yj1bELzo7s7kwqxHLb_ceddPjiBJTTcBfZjPuK4='
+SECRET_KEY3 = '79G7lLKB6J6gZ6BBjrK4gqXrDRbG0iGdZXRrp3bFaOE='
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

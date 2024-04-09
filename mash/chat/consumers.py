@@ -27,11 +27,11 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        #self.key = os.getenv('SECRET_KEY')
+        self.key = os.getenv('SECRET_KEY1').encode()
         #print(self.key)
-        self.cipher = Fernet(b'ZmDfcTF7_60GrrY167zsiPd67pEvs0aGOv2oasOM1Pg=')
-        #self.keysocket = os.getenv('SECRET_KEY2')
-        self.ciphersocket = Fernet(b'W4q6yj1bELzo7s7kwqxHLb_ceddPjiBJTTcBfZjPuK4=')
+        self.cipher = Fernet(self.key)
+        self.keysocket = os.getenv('SECRET_KEY2').encode()
+        self.ciphersocket = Fernet(self.keysocket)
 
     # Connect
     async def connect(self):

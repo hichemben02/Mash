@@ -56,8 +56,10 @@ def room(request, room_name, friend_id):
         messages.error(request, 'Invalid Room ID')
         return redirect('room-enroll')
 
-    cipher = Fernet(b'ZmDfcTF7_60GrrY167zsiPd67pEvs0aGOv2oasOM1Pg=')
-    cipher2 = Fernet(b'W4q6yj1bELzo7s7kwqxHLb_ceddPjiBJTTcBfZjPuK4=')
+    key1 = os.getenv('SECRET_KEY1').encode()
+    key2 = os.getenv('SECRET_KEY2').encode()
+    cipher = Fernet(key1)
+    cipher2 = Fernet(key2)
 
     chats = Chat.objects.filter(
         room_id=room_name

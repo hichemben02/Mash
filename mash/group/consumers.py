@@ -24,11 +24,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        #self.key = os.getenv('SECRET_KEY')
+        self.key = os.getenv('SECRET_KEY1').encode()
         #print(self.key)
-        self.cipher = Fernet(b'ZmDfcTF7_60GrrY167zsiPd67pEvs0aGOv2oasOM1Pg=')
-        #self.keysocket = os.getenv('SECRET_KEY2')
-        self.ciphersocket = Fernet(b'W4q6yj1bELzo7s7kwqxHLb_ceddPjiBJTTcBfZjPuK4=')
+        self.cipher = Fernet(self.key)
+        self.keysocket = os.getenv('SECRET_KEY2').encode()
+        self.ciphersocket = Fernet(self.keysocket)
 
     # Connect
     async def connect(self):
@@ -62,7 +62,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         message2 = self.ciphersocket.encrypt(message.encode()).decode()
-        print(f"=============Message from websocket ==> {message2}===================")
+        #print(f"=============Message from websocket ==> {message2}===================")
         username = text_data_json['username']
         user_image = text_data_json['user_image']
         room_name = text_data_json['room_name']
@@ -84,7 +84,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chatroom_message(self, event):
         message = event['message']
         message2 = self.ciphersocket.decrypt(message.encode()).decode()
-        print(f"=============Message to websocket ==> {message2}===================")
+        #print(f"=============Message to websocket ==> {message2}===================")
         encrypted_message = self.encrypt_message(message)
         username = event['username']
         user_image = event['user_image']

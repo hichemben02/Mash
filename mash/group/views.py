@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from group.models import Roomg, Message
 from cryptography.fernet import Fernet
+import os
 
 # Create your views here.
 User = get_user_model()
@@ -17,8 +18,10 @@ def group(request, slug):
     group = Roomg.objects.get(slug=slug)
     chats = Message.objects.filter(room=group).order_by('date')
 
-    cipher = Fernet(b'ZmDfcTF7_60GrrY167zsiPd67pEvs0aGOv2oasOM1Pg=')
-    cipher2 = Fernet(b'W4q6yj1bELzo7s7kwqxHLb_ceddPjiBJTTcBfZjPuK4=')
+    key1 = os.getenv('SECRET_KEY1').encode()
+    key2 = os.getenv('SECRET_KEY2').encode()
+    cipher = Fernet(key1)
+    cipher2 = Fernet(key2)
 
     for i in range(len(chats)):
         chats[i].text = cipher.decrypt(chats[i].text.encode()).decode()
